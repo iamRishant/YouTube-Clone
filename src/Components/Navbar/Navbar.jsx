@@ -5,8 +5,9 @@ import SearchBar from './SearchBar/SearchBar'
 import {RiVideoAddLine} from 'react-icons/ri' 
 import {IoMdNotificationsOutline} from 'react-icons/io'
 import {BiUserCircle} from 'react-icons/bi'
+import { Link } from 'react-router-dom'
 
-function Navbar() {
+function Navbar({toggleDrawer}) {
   // const CurrentUser=null;
   const CurrentUser={
     result: {
@@ -17,15 +18,15 @@ function Navbar() {
   return (
     <div className='Container_Navbar'>
       <div className='Burger_Logo_Navbar'>
-      <div className='burger'>
+      <div className='burger' onClick={()=>toggleDrawer()}>
         <p></p>
         <p></p>
         <p></p>
       </div>
-      <div className='logo_div_Navbar'>
+      <Link to={'/'} className='logo_div_Navbar'>
         <img src={logo} alt=''/>
         <p className='logo_title_navbar'>YouTube</p>
-      </div>
+      </Link>
       
       </div>
       <SearchBar/>

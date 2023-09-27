@@ -30,6 +30,7 @@ border-radius: 100%;
 }
 .logo_div_Navbar{
     display: flex;
+    text-decoration: none;
 }
 .logo_title_navbar{
     margin: auto;
