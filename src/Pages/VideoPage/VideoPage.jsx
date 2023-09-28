@@ -1,6 +1,7 @@
 import React from 'react'
 import vid from '../../Components/Video/vid.mp4'
 import './VideoPage.css'
+import LikeWatchLaterSaveBtns from './LikeWatchLaterSaveBtns'
 function VideoPage() {
   return (
     <>
@@ -22,7 +23,7 @@ function VideoPage() {
                             </div>
                         </div>
                     </div>
-
+                        <LikeWatchLaterSaveBtns/>
                     <div className='chanel_details_videoPage'>
                         <b className='chanel_logo_videoPage'>
                             <p>C</p>
@@ -35,7 +36,6 @@ function VideoPage() {
                                 Comments
                             </u>
                         </h2>
-
                     </div>
                 </div>
             </div>
