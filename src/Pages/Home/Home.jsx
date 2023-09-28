@@ -38,13 +38,45 @@ function Home() {
     title:"video 3",
     description:"description of video 3"
    },
-  ]
+  ];
+const NavList=[
+  "All",
+  "Python",
+  "Java",
+  "C++",
+  "Movies",
+  "Science",
+  "Animation",
+  "Gaming",
+  "Comedy",
+  "Python",
+  "Java",
+  "C++",
+  "Movies",
+  "Science",
+  "Animation",
+  "Gaming",
+  "Comedy",
+
+]
   return (
     <div className='container_Pages_App'>
 
     <LeftSidebar/>
     
     <div className='container2_Pages_App'>
+    <div className='navigation_Home'>
+      {
+        NavList.map(m=>{
+          return (
+
+          <p key={m} className='btn_nav_home'>
+            {m}
+          </p>
+          )
+        })
+      }
+    </div>
             <ShowVideoGrid vids={vids}/>
     </div>
     </div>
