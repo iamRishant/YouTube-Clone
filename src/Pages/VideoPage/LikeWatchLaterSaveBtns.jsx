@@ -7,8 +7,35 @@ import './LikeWatchLaterSaveBtns.css'
 import { AiFillDislike, AiFillLike, AiOutlineDislike, AiOutlineLike } from 'react-icons/ai'
 function LikeWatchLaterSaveBtns() {
 
-    const [SaveVideo,setSaveVideo]=useState(true)
-    const [DisLikeBtn,setDisLikeBtn]=useState(false)
+    const [SaveVideo,setSaveVideo]=useState(true);
+    const [DisLikeBtn,setDisLikeBtn]=useState(false);
+    const [LikeBtn,setLikeBtn]=useState(false);
+
+    const toggleSavedVideo=()=>{
+        if(SaveVideo){
+            setSaveVideo(false);
+        }else{
+            setSaveVideo(true);
+        }
+        
+    }
+
+    const toggleLikeBtn=()=>{
+        if(LikeBtn){
+            setLikeBtn(false);
+        }else{
+            setLikeBtn(true);
+        }
+    }
+
+    const toggleDislikebtn=()=>{
+        if(DisLikeBtn){
+            setDisLikeBtn(false);
+        }else{
+            setDisLikeBtn(true);
+        }
+    }
+    
     
   return (
     <div className='btns_cont_videoPage'>
@@ -17,10 +44,10 @@ function LikeWatchLaterSaveBtns() {
     </div>
     
     <div className='btn_VideoPage'>
-        <div className='like_videoPage'>
+        <div className='like_videoPage' onClick={()=>toggleLikeBtn()}>
         {
-            DisLikeBtn ? (<>
-            <AiFillLike size={22} className='btns_videoPage'/>
+            LikeBtn ? (<>
+            <AiFillLike size={22}  className='btns_videoPage'/>
             </>):(<>
             <AiOutlineLike size={22} className='btns_videoPage'/>
             </> )
@@ -28,7 +55,7 @@ function LikeWatchLaterSaveBtns() {
             <b>10k</b>
          </div>
 
-        <div className='like_videoPage'>
+        <div className='like_videoPage' onClick={()=>toggleDislikebtn()}>
         {
             DisLikeBtn ? (<>
             <AiFillDislike size={22} className='btns_videoPage'/>
@@ -41,7 +68,7 @@ function LikeWatchLaterSaveBtns() {
         }
             <b>Dislike</b>
          </div>
-        <div className='like_videoPage'>
+        <div className='like_videoPage' onClick={()=>toggleSavedVideo()}>
         {
             SaveVideo ? (<>
             <RiPlayListAddFill size={22} className='btns_videoPage'/>
