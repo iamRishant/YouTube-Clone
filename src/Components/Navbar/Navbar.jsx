@@ -1,21 +1,51 @@
-import React from 'react'
+import React,{useEffect, useState} from 'react'
 import './Navbar.css'
 import logo from './logo.ico'
 import SearchBar from './SearchBar/SearchBar'
 import {RiVideoAddLine} from 'react-icons/ri' 
 import {IoMdNotificationsOutline} from 'react-icons/io'
 import {BiUserCircle} from 'react-icons/bi'
+import {GoogleLogin} from 'react-google-login'
 import { Link } from 'react-router-dom'
+import {gapi} from 'gapi-script'
+import {useDispatch, useSelector} from 'react-redux'
+import { login } from '../../actions/auth'
+import Auth from '../../Pages/Auth/Auth'
 
-function Navbar({toggleDrawer}) {
+function Navbar({toggleDrawer,setEditCreateChanelBtn}) {
+  const [AuthBtn,setAuthBtn]=useState(false)
   // const CurrentUser=null;
-  const CurrentUser={
-    result: {
-      email: "xyz@gmail.com",
-      joinedOne: "koi bhi date",
-    },
-  };
+  // const CurrentUser={
+  //   result: {
+  //     email: "xyz@gmail.com",
+  //     joinedOne: "koi bhi date",
+  //   },
+  // };
+  const CurrentUser=useSelector(state=>state.currentUserReducer)
+  console.log(CurrentUser);
+  useEffect(()=>{
+    function start(){
+      gapi.client.init({
+        clientId:"353723660673-0700felhgqhv6rb1ioturbrcbv0pahkv.apps.googleusercontent.com",
+        scope:"email",
+      })
+    }
+    gapi.load("client:auth2",start);
+  },[]);
+
+    const dispatch=useDispatch();
+
+    const onSuccess=(response)=>{
+      const Email=response?.profileObj.email;
+      console.log(Email);
+      dispatch(login({email:Email}))
+    }
+
+    const onFailure=(response)=>{
+      console.log("Failed", response);
+    }
   return (
+    <>
     <div className='Container_Navbar'>
       <div className='Burger_Logo_Navbar'>
       <div className='burger' onClick={()=>toggleDrawer()}>
@@ -47,7 +77,7 @@ function Navbar({toggleDrawer}) {
       {
         CurrentUser ? 
         (<>
-          <div className='Channel_logo_App'>
+          <div className='Channel_logo_App' onClick={()=>setAuthBtn(true)}>
             <p className='fstChar_logo_App'>
              {
               CurrentUser?.result.name ? (
@@ -65,10 +95,20 @@ function Navbar({toggleDrawer}) {
         </>
         ):(
         <>
-        <p className='Auth_Btn'>
-          <BiUserCircle size={22}/>
+        <GoogleLogin
+          clientId={
+            '353723660673-0700felhgqhv6rb1ioturbrcbv0pahkv.apps.googleusercontent.com'
+          }
+          onSuccess={onSuccess}
+          onFailure={onFailure}
+          render={(renderProps)=>(
+            <p onClick={renderProps.onClick} className='Auth_Btn'>
+          <BiUserCircle  size={22}/>
           <b>Sign In</b>
-        </p>
+        </p>)
+          }
+        />
+        
         </>)
         //if user is not logged in then show sign in button
       }
@@ -76,6 +116,17 @@ function Navbar({toggleDrawer}) {
       </div>
 
     </div>
+    {
+      AuthBtn &&
+      <Auth
+      setEditCreateChanelBtn={setEditCreateChanelBtn}
+      setAuthBtn={setAuthBtn}
+      User={CurrentUser}
+
+
+      />
+    }
+    </>
   )
 }
 

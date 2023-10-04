@@ -11,8 +11,9 @@ import {
 }from "react-router-dom";
 import WatchLater from '../Pages/WatchLater/WatchLater';
 import VideoPage from '../Pages/VideoPage/VideoPage';
+import Chanel from "../Pages/Chanel/Chanel";
 
-function AllRoutes() {
+function AllRoutes({setEditCreateChanelBtn,setVidUploadPage}) {
   return (
     <Routes>
     <Route path='/' element={<Home/>} />
@@ -22,6 +23,11 @@ function AllRoutes() {
     <Route path='/watchlater' element={<WatchLater/>} />
     <Route path='/likedvideos' element={<LikedVideo/>} />
     <Route path='/videopage/:vid' element={<VideoPage/>} />
+    <Route path='/chanel/:Cid'
+     element={<Chanel 
+     setVidUploadPage={setVidUploadPage}
+     setEditCreateChanelBtn={setEditCreateChanelBtn}
+      />} />
       
     </Routes>
   )
